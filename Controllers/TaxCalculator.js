@@ -21,7 +21,7 @@ class TaxCalculator {
     for (let i = 0; i < this.taxSlabs.length; i++) {
       //From -> If not a number, 1 will be return
       let from = isNaN(parseFloat(this.taxSlabs[i].from))
-        ? 1
+        ? 0
         : this.taxSlabs[i].from;
 
       //To -> If not a number, income will be used

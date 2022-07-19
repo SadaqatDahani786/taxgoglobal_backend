@@ -8,15 +8,16 @@ const cors = require("cors");
 
 //Routers
 const RouterUS = require("./Routes/routeTaxUs");
+const RouterUK = require("./Routes/routeTaxUk");
 
 /**
  ** ====================================
- ** INIT
+ ** INIT & VARS
  ** ====================================
  */
-const app = express();
 const PORT_NO = 5000;
 const API_ENDPOINT = "/api/v1";
+const app = express();
 
 /**
  ** ====================================
@@ -31,6 +32,7 @@ app.use(cors({ origin: "*" }));
  ** ====================================
  */
 app.use(`${API_ENDPOINT}/calculate-tax/us`, RouterUS);
+app.use(`${API_ENDPOINT}/calculate-tax/uk`, RouterUK);
 
 /**
  ** ====================================
