@@ -7,7 +7,7 @@ const express = require("express");
 const cors = require("cors");
 
 //Routers
-const RouterUS = require("./Routes/routeTaxUs");
+const RouterIreland = require("./Routes/routeTaxIreland");
 const RouterUK = require("./Routes/routeTaxUk");
 
 /**
@@ -31,7 +31,7 @@ app.use(cors({ origin: "*" }));
  ** ROUTERS
  ** ====================================
  */
-app.use(`${API_ENDPOINT}/calculate-tax/us`, RouterUS);
+app.use(`${API_ENDPOINT}/calculate-tax/ireland`, RouterIreland);
 app.use(`${API_ENDPOINT}/calculate-tax/uk`, RouterUK);
 
 /**

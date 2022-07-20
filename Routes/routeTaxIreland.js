@@ -4,14 +4,14 @@
  ** ====================================
  */
 const Router = require("express").Router();
-const { calculateUSTaxes } = require("../Controllers/controllerUS");
+const { calculateIrelandTaxes } = require("../Controllers/controllerIreland");
 
 /**
  ** ====================================
  ** ROUTES
  ** ====================================
  */
-Router.route("/").get(calculateUSTaxes);
+Router.route("/").get(calculateIrelandTaxes);
 
 /**
  ** ====================================
