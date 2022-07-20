@@ -79,9 +79,9 @@ const taxRatesIreland = [
       },
     ],
     uscLimit: 13000,
-    year: "2022/23",
+    year: ["2022/23"],
   },
-  //2021-22
+  //2021-22 / 2020-21 / 2019/20
   {
     singleTaxSlabs: [
       {
@@ -119,7 +119,117 @@ const taxRatesIreland = [
         tax: 40,
       },
     ],
-    year: "2021/22",
+    usc: [
+      {
+        from: "less",
+        to: 12012,
+        tax: 0.5,
+      },
+      {
+        from: 12013,
+        to: 20687,
+        tax: 2,
+      },
+      {
+        from: 20688,
+        to: 70044,
+        tax: 4.5,
+      },
+      {
+        from: 70045,
+        to: "over",
+        tax: 8,
+      },
+    ],
+    uscReduced: [
+      {
+        from: "less",
+        to: 12012,
+        tax: 0.5,
+      },
+      {
+        from: 12013,
+        to: 20687,
+        tax: 2,
+      },
+    ],
+    uscLimit: 13000,
+    year: ["2021/22", "2020/21", "2019/20"],
+  },
+  //2018-19
+  {
+    singleTaxSlabs: [
+      {
+        from: "less",
+        to: 34550,
+        tax: 20,
+      },
+      {
+        from: 34551,
+        to: "over",
+        tax: 40,
+      },
+    ],
+    marriedSingleIncomeTaxSlabs: [
+      {
+        from: "less",
+        to: 43550,
+        tax: 20,
+      },
+      {
+        from: 43551,
+        to: "over",
+        tax: 40,
+      },
+    ],
+    oneParentFamilyTaxSlabs: [
+      {
+        from: "less",
+        to: 38550,
+        tax: 20,
+      },
+      {
+        from: 38551,
+        to: "over",
+        tax: 40,
+      },
+    ],
+    usc: [
+      {
+        from: "less",
+        to: 12012,
+        tax: 0.5,
+      },
+      {
+        from: 12013,
+        to: 18772,
+        tax: 2,
+      },
+      {
+        from: 18773,
+        to: 70044,
+        tax: 5,
+      },
+      {
+        from: 70045,
+        to: "over",
+        tax: 8,
+      },
+    ],
+    uscReduced: [
+      {
+        from: "less",
+        to: 12012,
+        tax: 0.5,
+      },
+      {
+        from: 12013,
+        to: 18772,
+        tax: 2,
+      },
+    ],
+    uscLimit: 13000,
+    year: ["2018/19"],
   },
 ];
 
@@ -130,7 +240,7 @@ const taxRatesIreland = [
  */
 const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
   //1) Find the tax rates of the year given
-  const taxRate = taxRatesIreland.find((rate) => rate.year === taxYear);
+  const taxRate = taxRatesIreland.find((rate) => rate.year.includes(taxYear));
 
   //2) Find tax band based on filing status
   let taxSlabs;
