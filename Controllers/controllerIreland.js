@@ -264,10 +264,23 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
     taxSlabs = [taxSlabs, taxRateUSC];
   }
 
-  //5) Return tax rates
+  //5) Calculate PRSI
+  const PRSI_TAX_PERCENT = 4;
+  const MAX_PRSI_CREDIT = 12;
+  const PRSI_LIMIT = 352.01;
+  const PRSI_AGE_LIMIT = 66;
+  const incomeWeekly = grossIncome / 26;
+
+  const tax_credit = MAX_PRSI_CREDIT - (incomeWeekly - PRSI_LIMIT) / 6; //A credit will reduce the tax amount
+  const prsi =
+    age >= PRSI_AGE_LIMIT || incomeWeekly <= PRSI_LIMIT - 0.01
+      ? 0
+      : ((incomeWeekly * PRSI_TAX_PERCENT) / 100 - tax_credit) * 26; //multiply by 26 to go to anunual tax
+
+  //6) Return tax rates
   return {
     taxSlabs,
-    acc: taxRate.acc,
+    prsi,
     currency: "£",
   };
 };
@@ -303,10 +316,31 @@ const calculateIrelandTaxes = (req, res) => {
     taxRates.currency
   );
 
+  //Transform Data
+  const taxInfo = {
+    usc: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
+    prsi: parseFloat(taxRates.prsi).toFixed(2),
+    tax: parseFloat(calculatedTaxInfo.totalTax).toFixed(2),
+    tax_breakup: calculatedTaxInfo.slabWiseTax,
+    deduction: parseFloat(
+      calculatedTaxInfo.totalTax +
+        calculatedTaxInfo.ncc.totalTax +
+        taxRates.prsi
+    ).toFixed(2),
+    gross_income: parseFloat(calculatedTaxInfo.income).toFixed(2),
+    net_income: parseFloat(
+      calculatedTaxInfo.income -
+        (calculatedTaxInfo.totalTax +
+          calculatedTaxInfo.ncc.totalTax +
+          taxRates.prsi)
+    ).toFixed(2),
+    currency: calculatedTaxInfo.currency,
+  };
+
   //5) Send response back to the client
   res.status(200).json({
     status: "success",
-    taxInfo: calculatedTaxInfo,
+    taxInfo,
   });
 };
 
