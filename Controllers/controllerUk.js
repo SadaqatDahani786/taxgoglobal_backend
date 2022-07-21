@@ -97,7 +97,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 1.35,
+    acc: 0,
     personalAllowance: 12570,
     personalAllowanceLimit: 100000,
     year: "2021/22",
@@ -253,7 +253,10 @@ const taxRatesUK = [
  ** Get Tax Rates
  ** ====================================
  */
-const getTaxRates = (grossIncome, taxYear) => {
+const getTaxRates = (grossIncome, taxYear, age) => {
+  //Retirement age - UK
+  const RETIREMENT_AGE = 65;
+
   //1) Find the tax rates of the year given
   const taxRate = taxRatesUK.find((rate) => rate.year === taxYear);
 
@@ -269,11 +272,14 @@ const getTaxRates = (grossIncome, taxYear) => {
   );
 
   //3) Apply calculated personal allowance on tax slab
-  const taxSlabs = taxRate.taxSlabs;
+  let taxSlabs = taxRate.taxSlabs;
   taxSlabs[0][0].to = personalAllowance;
   taxSlabs[0][1].from = personalAllowance + 1;
 
-  //4) Return tax rates
+  //4) If past retirement age, no NIC taxes
+  taxSlabs = age > RETIREMENT_AGE ? taxSlabs[0] : taxSlabs;
+
+  //5) Return tax rates
   return {
     taxSlabs,
     acc: taxRate.acc,
@@ -287,12 +293,13 @@ const getTaxRates = (grossIncome, taxYear) => {
  ** ====================================
  */
 const calculateUKTaxes = (req, res) => {
-  //1) Get income from query
+  //1) Get params from query
   const income = req.query.income;
   const taxYear = req.query["tax-year"];
+  const age = req.query.age;
 
   //2) Get tax rates for the given year
-  const taxRates = getTaxRates(income, taxYear);
+  const taxRates = getTaxRates(income, taxYear, age);
 
   //4) Check if income is a valid value
   if (!isIncomeValid(income)) {
@@ -310,10 +317,31 @@ const calculateUKTaxes = (req, res) => {
     taxRates.currency
   );
 
-  //6) Send response back to the client
+  //6 Transform Data
+  const taxInfo = {
+    nic: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
+    levies: parseFloat(calculatedTaxInfo.acc.tax).toFixed(2),
+    tax: parseFloat(calculatedTaxInfo.totalTax).toFixed(2),
+    tax_breakup: calculatedTaxInfo.slabWiseTax,
+    deduction: parseFloat(
+      calculatedTaxInfo.totalTax +
+        calculatedTaxInfo.ncc.totalTax +
+        calculatedTaxInfo.acc.tax
+    ).toFixed(2),
+    gross_income: parseFloat(calculatedTaxInfo.income).toFixed(2),
+    net_income: parseFloat(
+      calculatedTaxInfo.income -
+        (calculatedTaxInfo.totalTax +
+          calculatedTaxInfo.ncc.totalTax +
+          calculatedTaxInfo.acc.tax)
+    ).toFixed(2),
+    currency: calculatedTaxInfo.currency,
+  };
+
+  //7) Send response back to the client
   res.status(200).json({
     status: "success",
-    taxInfo: calculatedTaxInfo,
+    taxInfo,
   });
 };
 

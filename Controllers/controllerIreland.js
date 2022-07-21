@@ -269,13 +269,13 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
   const MAX_PRSI_CREDIT = 12;
   const PRSI_LIMIT = 352.01;
   const PRSI_AGE_LIMIT = 66;
-  const incomeWeekly = grossIncome / 26;
+  const incomeWeekly = grossIncome / 52; // 52 - number of weeks in a year
 
   const tax_credit = MAX_PRSI_CREDIT - (incomeWeekly - PRSI_LIMIT) / 6; //A credit will reduce the tax amount
   const prsi =
     age >= PRSI_AGE_LIMIT || incomeWeekly <= PRSI_LIMIT - 0.01
       ? 0
-      : ((incomeWeekly * PRSI_TAX_PERCENT) / 100 - tax_credit) * 26; //multiply by 26 to go to anunual tax
+      : ((incomeWeekly * PRSI_TAX_PERCENT) / 100 - tax_credit) * 52; //Apply the ((tax) - taxcredit)
 
   //6) Return tax rates
   return {
@@ -316,7 +316,7 @@ const calculateIrelandTaxes = (req, res) => {
     taxRates.currency
   );
 
-  //Transform Data
+  //5) Transform Data
   const taxInfo = {
     usc: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
     prsi: parseFloat(taxRates.prsi).toFixed(2),
@@ -337,7 +337,7 @@ const calculateIrelandTaxes = (req, res) => {
     currency: calculatedTaxInfo.currency,
   };
 
-  //5) Send response back to the client
+  //6) Send response back to the client
   res.status(200).json({
     status: "success",
     taxInfo,
