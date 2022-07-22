@@ -49,7 +49,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 1.35,
+    levy: 1.25,
     personalAllowance: 12570,
     personalAllowanceLimit: 100000,
     year: "2022/23",
@@ -97,7 +97,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 0,
+    levy: 0,
     personalAllowance: 12570,
     personalAllowanceLimit: 100000,
     year: "2021/22",
@@ -145,7 +145,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 0,
+    levy: 0,
     personalAllowance: 12500,
     personalAllowanceLimit: 100000,
     year: "2020/21",
@@ -193,7 +193,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 0,
+    levy: 0,
     personalAllowance: 12500,
     personalAllowanceLimit: 100000,
     year: "2019/20",
@@ -241,7 +241,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    acc: 0,
+    levy: 0,
     personalAllowance: 11850,
     personalAllowanceLimit: 100000,
     year: "2018/19",
@@ -279,10 +279,13 @@ const getTaxRates = (grossIncome, taxYear, age) => {
   //4) If past retirement age, no NIC taxes
   taxSlabs = age > RETIREMENT_AGE ? taxSlabs[0] : taxSlabs;
 
+  //5 Calc levy
+  let socialLevy = (grossIncome * taxRate.levy) / 100;
+
   //5) Return tax rates
   return {
     taxSlabs,
-    acc: taxRate.acc,
+    socialLevy,
     currency: "£",
   };
 };
@@ -310,32 +313,27 @@ const calculateUKTaxes = (req, res) => {
   }
 
   //5) Calculate Tax
-  const calculatedTaxInfo = calculateTax(
-    income,
-    taxRates.taxSlabs,
-    taxRates.acc,
-    taxRates.currency
-  );
+  const calculatedTaxInfo = calculateTax(income, taxRates.taxSlabs);
 
   //6 Transform Data
   const taxInfo = {
     nic: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
-    levies: parseFloat(calculatedTaxInfo.acc.tax).toFixed(2),
+    levies: parseFloat(taxRates.socialLevy).toFixed(2),
     tax: parseFloat(calculatedTaxInfo.totalTax).toFixed(2),
     tax_breakup: calculatedTaxInfo.slabWiseTax,
     deduction: parseFloat(
       calculatedTaxInfo.totalTax +
         calculatedTaxInfo.ncc.totalTax +
-        calculatedTaxInfo.acc.tax
+        taxRates.socialLevy
     ).toFixed(2),
     gross_income: parseFloat(calculatedTaxInfo.income).toFixed(2),
     net_income: parseFloat(
       calculatedTaxInfo.income -
         (calculatedTaxInfo.totalTax +
           calculatedTaxInfo.ncc.totalTax +
-          calculatedTaxInfo.acc.tax)
+          taxRates.socialLevy)
     ).toFixed(2),
-    currency: calculatedTaxInfo.currency,
+    currency: taxRates.currency,
   };
 
   //7) Send response back to the client

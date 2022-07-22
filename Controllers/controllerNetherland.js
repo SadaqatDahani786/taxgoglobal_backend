@@ -245,13 +245,7 @@ const calculateNetherlandTaxes = (req, res) => {
   }
 
   //4) Calculate Tax
-  const calculatedTaxInfo = calculateTax(
-    income,
-    taxRates.taxSlabs,
-    taxRates.acc,
-    taxRates.currency
-  );
-  console.log(calculatedTaxInfo.totalTax);
+  const calculatedTaxInfo = calculateTax(income, taxRates.taxSlabs);
 
   //5) Transform Data
   const taxInfo = {
@@ -269,7 +263,7 @@ const calculateNetherlandTaxes = (req, res) => {
       (calculatedTaxInfo.totalTax -
         (taxRates.generalTaxCredit + taxRates.labourTaxCredit))
     ).toFixed(2),
-    currency: calculatedTaxInfo.currency,
+    currency: taxRates.currency,
   };
 
   //6) Send a response

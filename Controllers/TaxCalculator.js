@@ -4,7 +4,7 @@ const isIncomeValid = (income) => {
 };
 
 //Calculate Tax
-const calculateTax = (income, taxSlabs, acc, currency) => {
+const calculateTax = (income, taxSlabs) => {
   let totalTax = 0;
   let slabWiseTax = [];
   let taxBand =
@@ -37,10 +37,7 @@ const calculateTax = (income, taxSlabs, acc, currency) => {
   //Calc ncc using recursion
   let ncc = { totalTax: 0 };
   if (taxSlabs.length > 1 && Array.isArray(taxSlabs[1]))
-    ncc = calculateTax(income, taxSlabs[1], acc, currency);
-
-  //Calculate acc tax
-  let calcAccTax = (income * acc) / 100;
+    ncc = calculateTax(income, taxSlabs[1]);
 
   //Return the tax calculated
   return {
@@ -48,11 +45,6 @@ const calculateTax = (income, taxSlabs, acc, currency) => {
     totalTax: totalTax,
     slabWiseTax: slabWiseTax,
     ncc: ncc,
-    acc: {
-      tax: calcAccTax,
-      percentage: acc,
-    },
-    currency: currency,
   };
 };
 

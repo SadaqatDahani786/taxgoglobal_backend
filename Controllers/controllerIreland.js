@@ -309,12 +309,7 @@ const calculateIrelandTaxes = (req, res) => {
   }
 
   //4) Calculate Tax
-  const calculatedTaxInfo = calculateTax(
-    income,
-    taxRates.taxSlabs,
-    taxRates.acc,
-    taxRates.currency
-  );
+  const calculatedTaxInfo = calculateTax(income, taxRates.taxSlabs);
 
   //5) Transform Data
   const taxInfo = {
@@ -334,7 +329,7 @@ const calculateIrelandTaxes = (req, res) => {
           calculatedTaxInfo.ncc.totalTax +
           taxRates.prsi)
     ).toFixed(2),
-    currency: calculatedTaxInfo.currency,
+    currency: taxRates.currency,
   };
 
   //6) Send response back to the client
