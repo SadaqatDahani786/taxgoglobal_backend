@@ -1,9 +1,17 @@
-//Check if income is a valid number
+/**
+ ** ====================================
+ ** IsIncomeValid
+ ** ====================================
+ */
 const isIncomeValid = (income) => {
   return !isNaN(income) && income >= 0;
 };
 
-//Calculate Tax
+/**
+ ** ====================================
+ ** CalculateTax
+ ** ====================================
+ */
 const calculateTax = (income, taxSlabs) => {
   let totalTax = 0;
   let slabWiseTax = [];
@@ -34,19 +42,25 @@ const calculateTax = (income, taxSlabs) => {
     }
   }
 
-  //Calc ncc using recursion
-  let ncc = { totalTax: 0 };
-  if (taxSlabs.length > 1 && Array.isArray(taxSlabs[1]))
-    ncc = calculateTax(income, taxSlabs[1]);
-
-  //Return the tax calculated
-  return {
-    income: income,
-    totalTax: totalTax,
-    slabWiseTax: slabWiseTax,
-    ncc: ncc,
-  };
+  //If more than one taxSlabs, use recursion to calc
+  if (taxSlabs.length > 1 && Array.isArray(taxSlabs[1])) {
+    const calcc = calculateTax(income, taxSlabs.splice(1));
+    return [
+      { income: income, totalTax: totalTax, slabWiseTax: slabWiseTax },
+      calcc,
+    ];
+  } else
+    return {
+      income: income,
+      totalTax: totalTax,
+      slabWiseTax: slabWiseTax,
+    };
 };
 
+/**
+ ** ====================================
+ ** EXPORTS
+ ** ====================================
+ */
 module.exports.calculateTax = calculateTax;
 module.exports.isIncomeValid = isIncomeValid;

@@ -259,10 +259,9 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
   const taxRateUSC =
     age > 70 && grossIncome <= 60000 ? taxRate.uscReduced : taxRate.usc;
 
-  //4) If income greater than limit, send usc for calculation, else don't
-  if (grossIncome > taxRate.uscLimit) {
-    taxSlabs = [taxSlabs, taxRateUSC];
-  }
+  //4) If income greater than limit, calc usc, else don't
+  if (grossIncome > taxRate.uscLimit) taxSlabs = [taxSlabs, taxRateUSC];
+  else taxSlabs = [taxSlabs, [{ from: "less", to: "more", tax: 0 }]];
 
   //5) Calculate PRSI
   const PRSI_TAX_PERCENT = 4;
@@ -312,23 +311,24 @@ const calculateIrelandTaxes = (req, res) => {
   const calculatedTaxInfo = calculateTax(income, taxRates.taxSlabs);
 
   //5) Transform Data
+  const usc = parseFloat(calculatedTaxInfo[1].totalTax).toFixed(2);
+  const prsi = parseFloat(taxRates.prsi).toFixed(2);
+  const tax = parseFloat(calculatedTaxInfo[0].totalTax).toFixed(2);
+  const tax_breakup = calculatedTaxInfo[0].slabWiseTax;
+  const deduction = parseFloat(tax + usc + prsi).toFixed(2);
+  const gross_income = parseFloat(income).toFixed(2);
+  const net_income = parseFloat(
+    gross_income - (parseFloat(tax) + parseFloat(usc) + parseFloat(prsi))
+  ).toFixed(2);
+
   const taxInfo = {
-    usc: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
-    prsi: parseFloat(taxRates.prsi).toFixed(2),
-    tax: parseFloat(calculatedTaxInfo.totalTax).toFixed(2),
-    tax_breakup: calculatedTaxInfo.slabWiseTax,
-    deduction: parseFloat(
-      calculatedTaxInfo.totalTax +
-        calculatedTaxInfo.ncc.totalTax +
-        taxRates.prsi
-    ).toFixed(2),
-    gross_income: parseFloat(calculatedTaxInfo.income).toFixed(2),
-    net_income: parseFloat(
-      calculatedTaxInfo.income -
-        (calculatedTaxInfo.totalTax +
-          calculatedTaxInfo.ncc.totalTax +
-          taxRates.prsi)
-    ).toFixed(2),
+    usc,
+    prsi,
+    tax,
+    tax_breakup,
+    deduction,
+    gross_income,
+    net_income,
     currency: taxRates.currency,
   };
 

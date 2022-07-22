@@ -49,7 +49,7 @@ const taxRatesUK = [
         },
       ],
     ],
-    levy: 1.25,
+    levy: 0, //1.25 -> Next year
     personalAllowance: 12570,
     personalAllowanceLimit: 100000,
     year: "2022/23",
@@ -272,12 +272,13 @@ const getTaxRates = (grossIncome, taxYear, age) => {
   );
 
   //3) Apply calculated personal allowance on tax slab
-  let taxSlabs = taxRate.taxSlabs;
+  let taxSlabs = [...taxRate.taxSlabs];
   taxSlabs[0][0].to = personalAllowance;
   taxSlabs[0][1].from = personalAllowance + 1;
 
   //4) If past retirement age, no NIC taxes
-  taxSlabs = age > RETIREMENT_AGE ? taxSlabs[0] : taxSlabs;
+  if (age > RETIREMENT_AGE)
+    taxSlabs = [taxSlabs[0], [{ from: "less", to: "more", tax: 0 }]];
 
   //5 Calc levy
   let socialLevy = (grossIncome * taxRate.levy) / 100;
@@ -315,24 +316,25 @@ const calculateUKTaxes = (req, res) => {
   //5) Calculate Tax
   const calculatedTaxInfo = calculateTax(income, taxRates.taxSlabs);
 
-  //6 Transform Data
+  //6) Transform Data
+  const nic = parseFloat(calculatedTaxInfo[1].totalTax).toFixed(2);
+  const levies = parseFloat(taxRates.socialLevy).toFixed(2);
+  const tax = parseFloat(calculatedTaxInfo[0].totalTax).toFixed(2);
+  const tax_breakup = calculatedTaxInfo[0].slabWiseTax;
+  const deduction = parseFloat(tax + nic + levies).toFixed(2);
+  const gross_income = parseFloat(income).toFixed(2);
+  const net_income = parseFloat(
+    gross_income - (parseFloat(tax) + parseFloat(nic) + parseFloat(levies))
+  ).toFixed(2);
+
   const taxInfo = {
-    nic: parseFloat(calculatedTaxInfo.ncc.totalTax).toFixed(2),
-    levies: parseFloat(taxRates.socialLevy).toFixed(2),
-    tax: parseFloat(calculatedTaxInfo.totalTax).toFixed(2),
-    tax_breakup: calculatedTaxInfo.slabWiseTax,
-    deduction: parseFloat(
-      calculatedTaxInfo.totalTax +
-        calculatedTaxInfo.ncc.totalTax +
-        taxRates.socialLevy
-    ).toFixed(2),
-    gross_income: parseFloat(calculatedTaxInfo.income).toFixed(2),
-    net_income: parseFloat(
-      calculatedTaxInfo.income -
-        (calculatedTaxInfo.totalTax +
-          calculatedTaxInfo.ncc.totalTax +
-          taxRates.socialLevy)
-    ).toFixed(2),
+    nic,
+    levies,
+    tax,
+    tax_breakup,
+    deduction,
+    gross_income,
+    net_income,
     currency: taxRates.currency,
   };
 
