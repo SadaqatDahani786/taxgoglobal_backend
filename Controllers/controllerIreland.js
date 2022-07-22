@@ -259,7 +259,7 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
   const taxRateUSC =
     age > 70 && grossIncome <= 60000 ? taxRate.uscReduced : taxRate.usc;
 
-  //4) If income greater than limit, send usc for calculation, else do nothing
+  //4) If income greater than limit, send usc for calculation, else don't
   if (grossIncome > taxRate.uscLimit) {
     taxSlabs = [taxSlabs, taxRateUSC];
   }
@@ -275,7 +275,7 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, age) => {
   const prsi =
     age >= PRSI_AGE_LIMIT || incomeWeekly <= PRSI_LIMIT - 0.01
       ? 0
-      : ((incomeWeekly * PRSI_TAX_PERCENT) / 100 - tax_credit) * 52; //Apply the ((tax) - taxcredit)
+      : ((incomeWeekly * PRSI_TAX_PERCENT) / 100 - tax_credit) * 52; //Calc the tax and subtract - taxcredit
 
   //6) Return tax rates
   return {
