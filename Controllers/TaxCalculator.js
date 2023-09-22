@@ -54,7 +54,7 @@ const calculateTax = (income, taxSlabs) => {
 
   //If more than one taxSlabs, use recursion to calc
   if (taxSlabs.length > 1 && Array.isArray(taxSlabs[1])) {
-    const calcc = calculateTax(income, taxSlabs.splice(1));
+    const calcc = calculateTax(income, [...taxSlabs].splice(1));
     return [
       { income: income, totalTax: totalTax, slabWiseTax: slabWiseTax },
       calcc,
