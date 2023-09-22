@@ -27,7 +27,7 @@ const calculateTax = (income, taxSlabs) => {
     let to = isNaN(parseFloat(taxBand[i].to)) ? income : taxBand[i].to;
 
     //If income is in range for current tax slab
-    if (income >= from) {
+    if (income >= from && taxBand[i].type !== "flat") {
       let taxableIncome = (income > to ? to : income) - from + 1;
       let slabTax = (taxableIncome * taxBand[i].tax) / 100;
       totalTax += slabTax;
@@ -38,6 +38,16 @@ const calculateTax = (income, taxSlabs) => {
           tax: taxBand[i].tax,
         },
         tax: slabTax,
+      });
+    } else if (income >= from && income <= to && taxBand[i].type === "flat") {
+      totalTax = taxBand[i].tax;
+      slabWiseTax.push({
+        taxSlab: {
+          from: from,
+          to: to,
+          tax: taxBand[i].tax,
+        },
+        tax: taxBand[i].tax,
       });
     }
   }
