@@ -1983,7 +1983,612 @@ const taxRatesAmerica = [
           },
         ],
       },
+      {
+        state: "Ohio",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 21750,
+            tax: 0,
+          },
+          {
+            from: 21751,
+            to: 43450,
+            tax: 2.85,
+          },
+          {
+            from: 43451,
+            to: 86900,
+            tax: 3.33,
+          },
+          {
+            from: 86901,
+            to: 108700,
+            tax: 3.8,
+          },
+          {
+            from: 108701,
+            to: 217400,
+            tax: 4.41,
+          },
+          {
+            from: 217401,
+            to: "more",
+            tax: 4.8,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 21750,
+            tax: 0,
+          },
+          {
+            from: 21751,
+            to: 43450,
+            tax: 2.85,
+          },
+          {
+            from: 43451,
+            to: 86900,
+            tax: 3.33,
+          },
+          {
+            from: 86901,
+            to: 108700,
+            tax: 3.8,
+          },
+          {
+            from: 108701,
+            to: 217400,
+            tax: 4.41,
+          },
+          {
+            from: 217401,
+            to: "more",
+            tax: 4.8,
+          },
+        ],
+      },
+      {
+        state: "Oklahoma",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 1000,
+            tax: 0.5,
+          },
+          {
+            from: 1001,
+            to: 2500,
+            tax: 1,
+          },
+          {
+            from: 2501,
+            to: 3750,
+            tax: 2,
+          },
+          {
+            from: 3751,
+            to: 4900,
+            tax: 3,
+          },
+          {
+            from: 4901,
+            to: 7200,
+            tax: 4,
+          },
+          {
+            from: 7201,
+            to: "more",
+            tax: 5,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 2000,
+            tax: 0.5,
+          },
+          {
+            from: 2001,
+            to: 5000,
+            tax: 1,
+          },
+          {
+            from: 5001,
+            to: 7500,
+            tax: 2,
+          },
+          {
+            from: 7501,
+            to: 9800,
+            tax: 3,
+          },
+          {
+            from: 9801,
+            to: 12200,
+            tax: 4,
+          },
+          {
+            from: 12201,
+            to: "more",
+            tax: 5,
+          },
+        ],
+      },
+      {
+        state: "Oregon",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 3550,
+            tax: 5,
+          },
+          {
+            from: 3551,
+            to: 8900,
+            tax: 7,
+          },
+          {
+            from: 8901,
+            to: 125000,
+            tax: 9,
+          },
+          {
+            from: 125001,
+            to: "more",
+            tax: 9.9,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 7100,
+            tax: 5,
+          },
+          {
+            from: 7101,
+            to: 17800,
+            tax: 7,
+          },
+          {
+            from: 17801,
+            to: 250000,
+            tax: 9,
+          },
+          {
+            from: 250001,
+            to: "more",
+            tax: 9.9,
+          },
+        ],
+      },
+      {
+        state: "Pennsylvania",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 3.07,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 3.07,
+          },
+        ],
+      },
+      {
+        state: "Rhode Island",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 65250,
+            tax: 3.75,
+          },
+          {
+            from: 65251,
+            to: 148350,
+            tax: 4.75,
+          },
+          {
+            from: 148351,
+            to: "more",
+            tax: 5.99,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 65250,
+            tax: 3.75,
+          },
+          {
+            from: 65251,
+            to: 148350,
+            tax: 4.75,
+          },
+          {
+            from: 148351,
+            to: "more",
+            tax: 5.99,
+          },
+        ],
+      },
+      {
+        state: "South Carolina",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 3070,
+            tax: 0,
+          },
+          {
+            from: 3071,
+            to: 6150,
+            tax: 3,
+          },
+          {
+            from: 6151,
+            to: 9230,
+            tax: 4,
+          },
+          {
+            from: 9231,
+            to: 12310,
+            tax: 5,
+          },
+          {
+            from: 12311,
+            to: 15400,
+            tax: 6,
+          },
+          {
+            from: 15401,
+            to: "more",
+            tax: 7,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 3070,
+            tax: 0,
+          },
+          {
+            from: 3071,
+            to: 6150,
+            tax: 3,
+          },
+          {
+            from: 6151,
+            to: 9230,
+            tax: 4,
+          },
+          {
+            from: 9231,
+            to: 12310,
+            tax: 5,
+          },
+          {
+            from: 12311,
+            to: 15400,
+            tax: 6,
+          },
+          {
+            from: 15401,
+            to: "more",
+            tax: 7,
+          },
+        ],
+      },
+      {
+        state: "South Dakota",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+      },
+      {
+        state: "Tennessee",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 1,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 1,
+          },
+        ],
+      },
+      {
+        state: "Texas",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+      },
+      {
+        state: "Utah",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 4.95,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 4.95,
+          },
+        ],
+      },
+      {
+        state: "Vermont",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 39600,
+            tax: 3.35,
+          },
+          {
+            from: 39601,
+            to: 96000,
+            tax: 6.6,
+          },
+          {
+            from: 96001,
+            to: 200200,
+            tax: 7.6,
+          },
+          {
+            from: 200201,
+            to: "more",
+            tax: 8.75,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 66150,
+            tax: 3.35,
+          },
+          {
+            from: 66151,
+            to: 159950,
+            tax: 6.6,
+          },
+          {
+            from: 159951,
+            to: 243750,
+            tax: 7.6,
+          },
+          {
+            from: 243751,
+            to: "more",
+            tax: 8.75,
+          },
+        ],
+      },
+      {
+        state: "Virginia",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 3000,
+            tax: 2,
+          },
+          {
+            from: 3001,
+            to: 5000,
+            tax: 3,
+          },
+          {
+            from: 5001,
+            to: 17000,
+            tax: 5,
+          },
+          {
+            from: 17001,
+            to: "more",
+            tax: 5.75,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 3000,
+            tax: 2,
+          },
+          {
+            from: 3001,
+            to: 5000,
+            tax: 3,
+          },
+          {
+            from: 5001,
+            to: 17000,
+            tax: 5,
+          },
+          {
+            from: 17001,
+            to: "more",
+            tax: 5.75,
+          },
+        ],
+      },
+      {
+        state: "Washington",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+      },
+      {
+        state: "West Virginia",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 10000,
+            tax: 3,
+          },
+          {
+            from: 10001,
+            to: 25000,
+            tax: 4,
+          },
+          {
+            from: 25001,
+            to: 40000,
+            tax: 4.5,
+          },
+          {
+            from: 40001,
+            to: 60000,
+            tax: 6,
+          },
+          {
+            from: 60001,
+            to: "more",
+            tax: 6.5,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 10000,
+            tax: 3,
+          },
+          {
+            from: 10001,
+            to: 25000,
+            tax: 4,
+          },
+          {
+            from: 25001,
+            to: 40000,
+            tax: 4.5,
+          },
+          {
+            from: 40001,
+            to: 60000,
+            tax: 6,
+          },
+          {
+            from: 60001,
+            to: "more",
+            tax: 6.5,
+          },
+        ],
+      },
+      {
+        state: "Wisconsin",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: 11970,
+            tax: 4,
+          },
+          {
+            from: 11971,
+            to: 23930,
+            tax: 5.21,
+          },
+          {
+            from: 23931,
+            to: 263480,
+            tax: 6.27,
+          },
+          {
+            from: 263481,
+            to: "more",
+            tax: 7.65,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: 15960,
+            tax: 4,
+          },
+          {
+            from: 15961,
+            to: 31910,
+            tax: 5.21,
+          },
+          {
+            from: 31911,
+            to: 351310,
+            tax: 6.27,
+          },
+          {
+            from: 351311,
+            to: "more",
+            tax: 7.65,
+          },
+        ],
+      },
+      {
+        state: "Wyoming",
+        singleTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+        marriedTaxRates: [
+          {
+            from: "less",
+            to: "more",
+            tax: 0,
+          },
+        ],
+      },
     ],
+    standard_deduction: 12400,
+    social_security: 6.2,
+    medicare: 1.45,
     year: "2021/22",
   },
 ];
@@ -2005,21 +2610,37 @@ const getTaxRates = (grossIncome, taxYear, filingStatus, state) => {
   //3) Find the state tax rates
   const taxRateState = taxRate.stateTax.find((rate) => rate.state === state);
 
-  //4) TaxSlabs
+  //4) Calc the social security
+  const socialSecurity = (grossIncome * taxRate.social_security) / 100;
+
+  //5) Calc the medicare
+  const medicare = (grossIncome * taxRate.medicare) / 100;
+
+  //6) Calc total FICA
+  const fica = parseFloat(socialSecurity) + parseFloat(medicare);
+
+  //7) TaxSlabs
   const taxSlabs = [
     taxRateFederal,
-    filingStatus === "Single"
-      ? taxRateState.singleTaxRates
-      : taxRateState.marriedTaxRates,
+    filingStatus === "Married - Filing Jointly"
+      ? taxRateState.marriedTaxRates
+      : taxRateState.singleTaxRates,
   ];
 
-  //2) Calc Taxable Income
-  const taxableIncome = grossIncome;
+  //8) Calc Taxable Income
+  const taxableIncome =
+    grossIncome -
+    (filingStatus === "Married - Filing Jointly"
+      ? taxRate.standard_deduction * 2
+      : taxRate.standard_deduction);
 
   return {
     taxableIncome,
     taxRateFederal,
     taxRateState,
+    socialSecurity,
+    medicare,
+    fica,
     taxSlabs,
     currency: "$",
   };
@@ -2059,9 +2680,21 @@ const calculateAmericaTaxes = (req, res) => {
     tax: calculatedTaxInfo[0].totalTax.toFixed(2),
     tax_breakup: calculatedTaxInfo[0].slabWiseTax,
     state_tax: calculatedTaxInfo[1].totalTax.toFixed(2),
-    deduction: parseFloat(calculatedTaxInfo[0].totalTax).toFixed(2),
+    social_security: parseFloat(taxRates.socialSecurity).toFixed(2),
+    medicare: parseFloat(taxRates.medicare).toFixed(2),
+    fica: parseFloat(taxRates.fica).toFixed(2),
+    deduction: (
+      parseFloat(calculatedTaxInfo[0].totalTax) +
+      parseFloat(calculatedTaxInfo[1].totalTax) +
+      parseFloat(taxRates.fica)
+    ).toFixed(2),
     gross_income: parseFloat(income).toFixed(2),
-    net_income: parseFloat(income).toFixed(2),
+    net_income: (
+      parseFloat(income) -
+      parseFloat(calculatedTaxInfo[0].totalTax) -
+      parseFloat(calculatedTaxInfo[1].totalTax) -
+      parseFloat(taxRates.fica)
+    ).toFixed(2),
     currency: taxRates.currency,
   };
 
